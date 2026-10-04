@@ -1,0 +1,453 @@
+You are helping me build the **frontend signup page** for a student complaint portal for **Kwara State University (KWASU)**, specifically for **NACOS (National Association of Computing Students)**.
+
+## My role
+
+I am responsible ONLY for the **frontend signup page**.
+
+The backend is being developed separately by another teammate using **Crystal**.
+
+Do NOT build the backend.
+
+Do NOT create a mock backend.
+
+Do NOT create fake API endpoints.
+
+Do NOT implement the dashboard, complaint submission system, admin panel, notifications, profile page, or other features yet.
+
+For now, focus ONLY on the signup page and its connection to the real backend API.
+
+---
+
+# Technology
+
+Use:
+
+* Next.js
+* React
+* JavaScript
+* HTML/JSX
+* CSS or the styling system already configured in this Replit project
+
+Keep the implementation simple and understandable.
+
+Do not add unnecessary libraries or frameworks.
+
+---
+
+# Project purpose
+
+The project is a **student complaint portal for KWASU NACOS**.
+
+Students will eventually be able to use the portal to submit complaints and communicate with student executives/admins.
+
+For now, I am ONLY implementing the account/signup part.
+
+---
+
+# Signup concept
+
+We do NOT want students manually choosing their own Student ID and password.
+
+Instead, the backend will generate the student's credentials.
+
+The student enters their **email address**.
+
+The frontend sends the email to the backend.
+
+The backend then:
+
+1. Checks the email.
+2. Creates/associates an account with that email.
+3. Generates a Student ID.
+4. Generates a password.
+5. Returns the generated Student ID and password to the frontend.
+
+The frontend then displays those credentials to the student.
+
+The student must be clearly told to save their credentials somewhere safe.
+
+---
+
+# Signup page UI
+
+Create a professional university student portal signup page.
+
+The page should feel familiar to **KWASU students**.
+
+Use a visual style inspired by the KWASU website/university identity:
+
+* KWASU-style colors
+* Clean university portal layout
+* Professional typography
+* Clear navigation/branding
+* Student-focused design
+* Strong readability
+* Responsive layout
+
+Do NOT make it look like:
+
+* A generic SaaS website
+* A futuristic AI website
+* A crypto website
+* A landing page
+* A glassmorphism template
+* An overly animated template
+* A page full of huge cards and gradients
+
+It should look like a **real university student portal**.
+
+Do not copy the KWASU website pixel-for-pixel. Use its visual identity as inspiration.
+
+---
+
+# Branding
+
+Display:
+
+**KWASU**
+
+**Student Complaint Portal**
+
+**NACOS**
+
+You can use a subtitle such as:
+
+"Generate your student credentials to access the complaint portal."
+
+---
+
+# Initial signup state
+
+The page should initially show:
+
+### Create Your Credentials
+
+Explain briefly:
+
+"Enter your email address to generate your student portal credentials."
+
+Then show:
+
+### Email Address
+
+Input:
+
+```text
+Enter your email address
+```
+
+The email field is required.
+
+Validate that the user has entered a valid email address.
+
+Then show the main button:
+
+### Generate My Credentials
+
+---
+
+# API REQUEST
+
+When the student clicks:
+
+**Generate My Credentials**
+
+send a POST request to:
+
+```text
+<BACKEND_URL>/api/signup
+```
+
+The backend URL should be stored in a configurable environment variable rather than hardcoded throughout the application.
+
+For example, use a Next.js public environment variable such as:
+
+```text
+NEXT_PUBLIC_API_URL
+```
+
+Then construct the endpoint from it:
+
+```text
+${NEXT_PUBLIC_API_URL}/api/signup
+```
+
+---
+
+# Request method
+
+The request must be:
+
+```http
+POST
+```
+
+with:
+
+```http
+Content-Type: application/json
+```
+
+The frontend sends the student's email as JSON.
+
+Example:
+
+```json
+{
+  "email": "student@example.com"
+}
+```
+
+Example JavaScript:
+
+```javascript
+const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email: email
+  })
+});
+```
+
+If the project uses a different Next.js client-side environment variable pattern, follow the correct Next.js convention.
+
+IMPORTANT:
+
+The frontend must NOT generate the Student ID.
+
+The frontend must NOT generate the password.
+
+The backend generates both.
+
+---
+
+# Successful response
+
+The backend should return:
+
+```http
+201 Created
+```
+
+with JSON containing the generated Student ID and password.
+
+Example response:
+
+```json
+{
+  "id": "STU12345",
+  "password": "K7x92Lm"
+}
+```
+
+IMPORTANT:
+
+The exact property names should be easy to change because the backend teammate may provide a slightly different response structure later.
+
+Do not invent additional response fields.
+
+---
+
+# After successful signup
+
+When the response status is:
+
+```text
+201
+```
+
+show a success/credentials screen.
+
+Example:
+
+### Your credentials have been generated
+
+**Student ID**
+
+```text
+STU12345
+```
+
+**Password**
+
+```text
+K7x92Lm
+```
+
+Display a clear warning:
+
+> Keep these credentials safe. You will need them to log in to the student complaint portal.
+
+Add a button:
+
+### Continue to Login
+
+The login page is not being built yet.
+
+For now, the button can navigate to:
+
+```text
+/login
+```
+
+Do not build the login page unless specifically asked later.
+
+---
+
+# Loading state
+
+When the student clicks "Generate My Credentials":
+
+* Disable the button.
+* Show a loading indicator.
+* Prevent duplicate requests.
+* Wait for the backend response.
+
+Example:
+
+```text
+Generating credentials...
+```
+
+Once the request finishes, restore the appropriate state.
+
+---
+
+# Error handling
+
+Handle:
+
+* Invalid email
+* Empty email
+* Network failure
+* Server errors
+* Non-201 responses
+* Backend error messages
+
+If the backend returns:
+
+```json
+{
+  "message": "Email already registered"
+}
+```
+
+show that message clearly to the user.
+
+Do not invent an account or credentials if the backend request fails.
+
+Do not display fake credentials.
+
+---
+
+# Security requirements
+
+Do NOT:
+
+* Generate passwords on the frontend.
+* Generate Student IDs on the frontend.
+* Store the generated password in localStorage.
+* Put credentials in the URL.
+* Hardcode API secrets.
+* Expose backend secrets.
+* Create a fake authentication system.
+* Create a fake database.
+* Create a mock API unless I explicitly ask for one.
+
+The generated credentials should only be displayed after receiving the successful backend response.
+
+---
+
+# Code structure
+
+Keep the code organized.
+
+Use a clear structure appropriate for Next.js.
+
+For example:
+
+```text
+app/
+  signup/
+    page.jsx
+
+components/
+  ...
+
+public/
+  ...
+
+```
+
+If this Replit project already has a structure, inspect it first and work with the existing structure instead of unnecessarily rebuilding the project.
+
+---
+
+# Important development rule
+
+Before changing the project:
+
+1. Inspect the existing files.
+2. Determine which Next.js version and structure the project uses.
+3. Reuse the existing setup where possible.
+4. Do not delete existing project files unnecessarily.
+5. Do not install unnecessary packages.
+6. Keep the signup implementation isolated and easy to understand.
+
+---
+
+# Final user flow
+
+The completed signup page should work like this:
+
+```text
+Student opens signup page
+        ↓
+Enters email
+        ↓
+Clicks "Generate My Credentials"
+        ↓
+Frontend sends:
+
+POST <BACKEND_URL>/api/signup
+
+{
+    "email": "student@example.com"
+}
+
+        ↓
+Crystal backend processes request
+        ↓
+Backend generates:
+Student ID
+Password
+        ↓
+Backend returns:
+
+HTTP 201 Created
+
+{
+    "id": "STU12345",
+    "password": "K7x92Lm"
+}
+
+        ↓
+Frontend displays credentials
+        ↓
+"Keep these credentials safe"
+        ↓
+Student clicks "Continue to Login"
+        ↓
+Navigate to /login
+```
+
+## Scope restriction
+
+Again, ONLY build the **signup page** and the API request/response handling needed for it.
+
+Do not build other pages or features yet.
+
+Make the result look like a polished, realistic **KWASU NACOS student portal**, not a generic AI-generated website.
