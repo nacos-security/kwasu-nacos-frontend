@@ -1,0 +1,1 @@
+- [Workspace package installs](workspace-package-installs.md) — the generic package helper targets the workspace root; package-specific installs need leaf-aware handling.
