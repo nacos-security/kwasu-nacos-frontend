@@ -1,0 +1,983 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KWASU Student Complaint Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f5f4ea;
+            --cream-light: #faf9f2;
+            --green: #073f2a;
+            --green-light: #0d5138;
+            --gold: #b99a4a;
+            --gold-light: #d4bd7b;
+            --text: #294438;
+            --muted: #6d7971;
+            --white: #ffffff;
+            --border: #deded3;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            background: rgba(245, 244, 234, 0.96);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .brand-text strong {
+            display: block;
+            color: var(--green);
+            font-size: 15px;
+        }
+
+        .brand-text small {
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .login-btn {
+            border: 1px solid var(--green);
+            padding: 10px 21px;
+            color: var(--green);
+        }
+
+        .login-btn:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            min-height: 620px;
+            padding: 90px 30px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 35px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            color: var(--green);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(48px, 6vw, 76px);
+            line-height: 0.98;
+            font-weight: 500;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero-text {
+            max-width: 570px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 26px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
+        .btn-outline:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        /* ================= PORTAL CARD ================= */
+
+        .hero-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--gold);
+            padding: 42px;
+            box-shadow: 0 18px 45px rgba(7, 63, 42, 0.08);
+        }
+
+        .card-label {
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .hero-card h2 {
+            color: var(--green);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .hero-card > p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .card-line {
+            border-top: 1px solid var(--border);
+            padding: 18px 0;
+            display: flex;
+            gap: 16px;
+        }
+
+        .number {
+            color: var(--gold);
+            font-family: Georgia, serif;
+            font-size: 20px;
+            min-width: 28px;
+        }
+
+        .card-line strong {
+            color: var(--green);
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .card-line span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ================= INTRO ================= */
+
+        .intro {
+            background: var(--green);
+            color: white;
+            padding: 85px 30px;
+        }
+
+        .intro-inner {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .section-label {
+            color: var(--gold-light);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .intro h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 500;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            max-width: 760px;
+            margin: auto;
+            color: #dbe5df;
+            line-height: 1.8;
+        }
+
+        /* ================= HOW IT WORKS ================= */
+
+        .how {
+            padding: 95px 30px;
+            background: var(--cream-light);
+        }
+
+        .section-heading {
+            max-width: 1150px;
+            margin: auto;
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-heading .section-label {
+            color: var(--gold);
+        }
+
+        .section-heading h2 {
+            color: var(--green);
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 500;
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .steps {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .step {
+            background: white;
+            padding: 30px 24px;
+            border: 1px solid var(--border);
+            min-height: 205px;
+            position: relative;
+        }
+
+        .step-number {
+            color: var(--gold);
+            font-family: Georgia, serif;
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .step h3 {
+            color: var(--green);
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ================= COMPLAINT TYPES ================= */
+
+        .concerns {
+            padding: 95px 30px;
+            background: white;
+        }
+
+        .concern-grid {
+            max-width: 1050px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .concern {
+            padding: 28px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.3s;
+        }
+
+        .concern:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .concern-mark {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-family: Georgia, serif;
+            font-weight: bold;
+        }
+
+        .concern h3 {
+            color: var(--green);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .concern p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ================= INFO ================= */
+
+        .info {
+            background: var(--cream);
+            padding: 90px 30px;
+        }
+
+        .info-box {
+            max-width: 1050px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .info h2 {
+            color: var(--green);
+            font-family: Georgia, serif;
+            font-size: 38px;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .info p {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .notice {
+            background: white;
+            border-left: 4px solid var(--gold);
+            padding: 28px;
+        }
+
+        .notice strong {
+            display: block;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .notice p {
+            font-size: 14px;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            background: var(--green);
+            padding: 85px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: Georgia, serif;
+            font-weight: 500;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #dbe5df;
+            margin-bottom: 30px;
+        }
+
+        .cta .btn-primary {
+            background: var(--gold);
+            color: var(--green);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--gold-light);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #042d1f;
+            color: #b9c9c0;
+            padding: 40px 30px;
+        }
+
+        .footer-inner {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        footer span {
+            color: var(--gold-light);
+        }
+
+        footer p {
+            font-size: 13px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a:not(.login-btn) {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+                gap: 50px;
+            }
+
+            .hero-card {
+                max-width: 600px;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 14px 18px;
+            }
+
+            .brand-text small {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero-text {
+                font-size: 15px;
+            }
+
+            .hero-card {
+                padding: 28px;
+            }
+
+            .intro,
+            .how,
+            .concerns,
+            .info,
+            .cta {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .steps,
+            .concern-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2,
+            .intro h2,
+            .cta h2,
+            .info h2 {
+                font-size: 32px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="navbar">
+
+            <div class="brand">
+
+                <div class="logo">
+                    KW
+                </div>
+
+                <div class="brand-text">
+                    <strong>KWASU COMPUTING STUDENTS</strong>
+                    <small>STUDENT REPRESENTATION PORTAL</small>
+                </div>
+
+            </div>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#how">How It Works</a>
+                <a href="#contact">Contact</a>
+                <a href="#" class="login-btn">Login</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+    <main id="home">
+
+        <section class="hero">
+
+            <div>
+
+                <div class="eyebrow">
+                    KWARA STATE UNIVERSITY
+                </div>
+
+                <h1>
+                    Student<br>
+                    Complaint<br>
+                    <span>Portal</span>
+                </h1>
+
+                <p class="hero-text">
+                    A dedicated platform for KWASU NACOS students
+                    to raise concerns, submit complaints and connect
+                    with student representatives in a structured and
+                    transparent way.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">
+                        Get Started
+                    </a>
+
+                    <a href="#how" class="btn btn-outline">
+                        Learn More
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="card-label">
+                    STUDENT ACCESS
+                </div>
+
+                <h2>
+                    Your Voice Matters
+                </h2>
+
+                <p>
+                    Use the portal to communicate concerns and
+                    follow the progress of submitted complaints.
+                </p>
+
+                <div class="card-line">
+                    <div class="number">01</div>
+                    <div>
+                        <strong>Raise a Concern</strong>
+                        <span>Submit your issue through the portal.</span>
+                    </div>
+                </div>
+
+                <div class="card-line">
+                    <div class="number">02</div>
+                    <div>
+                        <strong>Track Progress</strong>
+                        <span>Monitor the status of your complaint.</span>
+                    </div>
+                </div>
+
+                <div class="card-line">
+                    <div class="number">03</div>
+                    <div>
+                        <strong>Receive a Response</strong>
+                        <span>Stay informed as your concern is reviewed.</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INTRO -->
+        <section class="intro" id="about">
+
+            <div class="intro-inner">
+
+                <div class="section-label">
+                    FOR THE KWASU COMPUTING COMMUNITY
+                </div>
+
+                <h2>
+                    A Structured Way to Be Heard
+                </h2>
+
+                <p>
+                    The Student Complaint Portal provides a central
+                    platform where students can communicate concerns
+                    relating to academic support, welfare, student
+                    representation and other chapter matters.
+                    The goal is to make communication clearer,
+                    organized and easier to follow.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOW IT WORKS -->
+        <section class="how" id="how">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    HOW IT WORKS
+                </div>
+
+                <h2>
+                    From Concern to Resolution
+                </h2>
+
+                <p>
+                    Four simple steps to make your concern known.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+
+                    <h3>Create Your Credentials</h3>
+
+                    <p>
+                        Create your student portal credentials
+                        using your registered student email.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">02</div>
+
+                    <h3>Submit Your Complaint</h3>
+
+                    <p>
+                        Provide the necessary information and
+                        clearly explain the concern you want addressed.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">03</div>
+
+                    <h3>Track Your Complaint</h3>
+
+                    <p>
+                        Follow the status of your complaint as
+                        it moves through the review process.
+                    </p>
+                </div>
+
+
+                <div class="step">
+                    <div class="step-number">04</div>
+
+                    <h3>Receive a Response</h3>
+
+                    <p>
+                        View updates and responses from the
+                        appropriate student representatives.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TYPES OF CONCERNS -->
+        <section class="concerns">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    AREAS OF CONCERN
+                </div>
+
+                <h2>
+                    What Can You Report?
+                </h2>
+
+                <p>
+                    The portal can be used for matters affecting
+                    students and the computing community.
+                </p>
+
+            </div>
+
+
+            <div class="concern-grid">
+
+                <div class="concern">
+                    <div class="concern-mark">A</div>
+
+                    <div>
+                        <h3>Academic Support</h3>
+                        <p>
+                            Concerns relating to academic activities
+                            and student support.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="concern">
+                    <div class="concern-mark">W</div>
+
+                    <div>
+                        <h3>Student Welfare</h3>
+                        <p>
+                            Report issues affecting student welfare
+                            and campus experience.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="concern">
+                    <div class="concern-mark">R</div>
+
+                    <div>
+                        <h3>Student Representation</h3>
+                        <p>
+                            Raise concerns requiring student
+                            representation or intervention.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="concern">
+                    <div class="concern-mark">O</div>
+
+                    <div>
+                        <h3>Other Chapter Matters</h3>
+                        <p>
+                            Submit other relevant concerns requiring
+                            attention from representatives.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+        <section class="info">
+
+            <div class="info-box">
+
+                <div>
+
+                    <div class="section-label">
+                        IMPORTANT
+                    </div>
+
+                    <h2>
+                        Built for Students,
+                        Built for Accountability.
+                    </h2>
+
+                    <p>
+                        This portal is intended to provide a clear
+                        channel for students to communicate with
+                        their representatives. Students should provide
+                        accurate information when submitting a complaint.
+                    </p>
+
+                </div>
+
+
+                <div class="notice">
+
+                    <strong>
+                        Before submitting a complaint
+                    </strong>
+
+                    <p>
+                        Make sure the information you provide is
+                        accurate and relevant to the issue being
+                        reported. Avoid submitting duplicate reports
+                        for the same concern.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+        <section class="cta" id="contact">
+
+            <h2>
+                Have a Concern?
+            </h2>
+
+            <p>
+                Your voice matters. Start by making your concern known.
+            </p>
+
+            <a href="#" class="btn btn-primary">
+                Access Student Portal
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-inner">
+
+            <div>
+                <strong>KWASU Computing Students</strong>
+                <p>Student Complaint Portal</p>
+            </div>
+
+            <div>
+                <p>
+                    © 2026 Student Complaint Portal
+                </p>
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
